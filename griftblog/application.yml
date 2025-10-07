@@ -1,0 +1,36 @@
+server:
+  port:8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/griftblog?sslmode=disable
+    username: yorke
+    password: west1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update    # use 'create' only for first time setup
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# JWT configuration (for later when we add auth)
+jwt:
+  secret: "your_super_secret_key_change_this"
+  expiration: 86400000   # 1 day in milliseconds
+
+# Application metadata
+app:
+  name: GriftBlog
+  version: 1.0.0
