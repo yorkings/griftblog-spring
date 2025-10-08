@@ -1,11 +1,13 @@
 server:
-  port:8080
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/griftblog?sslmode=disable
     username: yorke
     password: west1234
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update    # use 'create' only for first time setup
@@ -20,12 +22,26 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: yorkingskirauni@gmail.com
+    password: aeom iruc imkd wfsu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        transport:
+          protocol: smtp
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-# JWT configuration (for later when we add auth)
+# JWT configuration
 jwt:
   secret: "your_super_secret_key_change_this"
   expiration: 86400000   # 1 day in milliseconds

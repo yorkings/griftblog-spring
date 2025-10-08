@@ -1,6 +1,6 @@
 package com.example.griftblog.models;
 
-import com.example.griftblog.data.Status;
+import com.example.griftblog.DTO.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

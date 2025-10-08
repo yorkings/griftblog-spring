@@ -1,6 +1,6 @@
 package com.example.griftblog.Repository;
 
-import com.example.griftblog.data.Status;
+import com.example.griftblog.DTO.Status;
 import com.example.griftblog.models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

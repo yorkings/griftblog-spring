@@ -46,6 +46,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+
+
 <!--        external dependacies-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -63,6 +65,10 @@
             <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson -->
             <version>0.11.5</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-mail</artifactId>
         </dependency>
 <!--end of the dependancies-->
 		<dependency>

@@ -28,7 +28,14 @@ public class User {
     @Column(nullable = false,unique = true)
     private String  email;
 
-   @ManyToMany(fetch = FetchType.EAGER)
+    @Column(nullable = false)
+    private boolean enabled = false; // User cannot log in until confirmed
+
+    @Column(nullable = false)
+    private boolean locked = false; // Account can be locked if necessary
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(
            name = "user_roles",
            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
@@ -42,5 +49,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
+
 
 }

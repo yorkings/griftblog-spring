@@ -1,4 +1,4 @@
-package com.example.griftblog.data;
+package com.example.griftblog.DTO;
 
 public enum Status {
     DRAFTED,PUBLISHED,ARCHIVED
