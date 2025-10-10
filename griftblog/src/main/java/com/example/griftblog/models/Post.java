@@ -24,11 +24,14 @@ public class Post {
     @Column(nullable = false)
     private String title;
     @Column(nullable = false,columnDefinition = "Text")
-    private String Content;
+    private String content;
+
     @Column(nullable = false,name = "image_url")
     private String  imageURl;
     @Enumerated(EnumType.STRING)
     private Status status= Status.DRAFTED;
+
+    private String slug;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 

@@ -12,6 +12,7 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     // Retrieve all comments made by a specific user
     List<Comment> findByAuthorId(Long authorId);
 
+    List<Comment>findByPostIdAndParentCommentIsNull(Long postId);
     List<Comment> findByParentCommentId(Long parentCommentId);
 
 }
