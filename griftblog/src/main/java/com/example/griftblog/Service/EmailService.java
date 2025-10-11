@@ -17,8 +17,8 @@ public class EmailService {
           message.setText(body);
           mailSender.send(message);
       }
-      catch (MatchException e){
-          throw new IllegalStateException("Failed to send confirmation email.");
+      catch (Exception e){
+          throw new IllegalStateException("Failed to send confirmation email." +e.getMessage());
       }
   }
 }

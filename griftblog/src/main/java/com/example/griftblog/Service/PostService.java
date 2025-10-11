@@ -57,7 +57,7 @@ public class PostService {
         post.setUpdatedAt(LocalDateTime.now());
         post.setContent(record.content());
         post.setStatus(record.status());
-        post.setSlug(generateSlug(record.title()));
+        post.setSlug(generateUniqueSlug(record.title()));
         post.setImageURl(record.imageUrl());
         return postRepo.save(post);
     };
@@ -82,6 +82,10 @@ public class PostService {
     public List<Post> getAuthorPosts(Long userId) {
         return postRepo.findByAuthorId(userId);
     }
+    public List<Post> getPublishedPosts() {
+        return postRepo.findByStatusOrderByCreatedAtDesc(Status.PUBLISHED);
+    }
+
 
     // methods
     public String generateSlug(String title) {
@@ -91,5 +95,15 @@ public class PostService {
                 .replaceAll("\\s+", "-")
                 .replaceAll("^-|-$", "");
     }
+    private String generateUniqueSlug(String title) {
+        String base = generateSlug(title);
+        String slug = base;
+        int counter = 1;
+        while (postRepo.findBySlug(slug).isPresent()) {
+            slug = base + "-" + counter++;
+        }
+        return slug;
+    }
+
 
 }
