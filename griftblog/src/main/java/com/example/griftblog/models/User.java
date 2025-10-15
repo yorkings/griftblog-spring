@@ -1,5 +1,6 @@
 package com.example.griftblog.models;
 
+import com.example.griftblog.DTO.RoleUsers;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,15 +37,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private boolean locked = false; // Account can be locked if necessary
 
+    @Enumerated(EnumType.STRING)
+    private RoleUsers roles= RoleUsers.ROLE_USER;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-   @JoinTable(
-           name = "user_roles",
-           joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
-           inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
-
-   )
-   private Set<Role> roles=new HashSet<>();
     @JsonIgnore
    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Post> posts= new ArrayList<>();
@@ -56,10 +51,11 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // CORRECT APPROACH: Use SimpleGrantedAuthority to wrap the role name
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toSet());
+        // FIX: Convert the single RoleUsers enum value into a Collection of GrantedAuthority
+        return Collections.singletonList(
+                // Use .name() to get the string representation (e.g., "ROLE_USER")
+                new SimpleGrantedAuthority(this.roles.name())
+        );
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.example.griftblog.Service;
 
 import com.example.griftblog.DTO.RegisterRequest;
+import com.example.griftblog.DTO.RoleUsers;
 import com.example.griftblog.Repository.ConfirmationTokenRepository;
-import com.example.griftblog.Repository.RoleRepository;
+
 import com.example.griftblog.Repository.UserRepository;
 
 import com.example.griftblog.models.ConfirmationToken;
-import com.example.griftblog.models.Role;
 import com.example.griftblog.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,15 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
-    private  final RoleRepository roleRepo;
     private  final ConfirmationTokenRepository tokenRepo;
     private  final  EmailService emailService;
 
@@ -35,16 +33,12 @@ public class UserService {
             throw  new IllegalArgumentException("email already taken");
         }
         String encodedPassword = passwordEncoder.encode(request.password());
-        Role defaultRole= roleRepo.findByName("ROLE_USER")
-                .orElseThrow(() -> new RuntimeException("Error: Default role not found."));
-        Set<Role> roles = new HashSet<>();
-        roles.add(defaultRole);
-
+       RoleUsers defaultRole= RoleUsers.ROLE_USER;
         User newUser= User.builder()
                 .username(request.username())
                 .email(request.email())
                 .password(encodedPassword)
-                .roles(roles)
+                .roles(defaultRole)
                 .enabled(false)
                 .build();
         userRepo.save(newUser);

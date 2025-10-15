@@ -1,6 +1,7 @@
 package com.example.griftblog.Service;
 
 import com.example.griftblog.Config.JwtService;
+import com.example.griftblog.DTO.LoginRequest;
 import com.example.griftblog.Repository.UserRepository;
 import com.example.griftblog.models.User;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,11 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-    public String Authenticate(String name,String password){
+    public String authenticate(LoginRequest login){
         authMan.authenticate(
-                new UsernamePasswordAuthenticationToken(name,password)
+                new UsernamePasswordAuthenticationToken(login.username(),login.password())
         );
-        User user = userRepo.findByUsername(name).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = userRepo.findByUsername(login.username()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         if (!user.isEnabled()) {
             throw new IllegalStateException("Account not verified. Please check your email.");
         }

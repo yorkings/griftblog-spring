@@ -67,12 +67,15 @@ public class PostService {
     }
 
     //Retrieval
+    public List<Post>getAllPosts(){
+         return postRepo.findAll();
+    }
     public List<Post> findByStatus(Status status){
         return postRepo.findByStatus(status);
     }
 
-    public Optional<Post> getPostById(Long postId) {
-        return postRepo.findById(postId);
+    public Post getPostById(Long postId) {
+        return postRepo.findById(postId).orElseThrow(()->new ResourceNotFound("no id found"));
     }
 
     public List<Post> searchTitle(String name){
@@ -82,10 +85,15 @@ public class PostService {
     public List<Post> getAuthorPosts(Long userId) {
         return postRepo.findByAuthorId(userId);
     }
+    public List<Post>getAuthoridandStatus(Long AuthorId,Status status){
+        return postRepo.findByAuthorIdAndStatus(AuthorId,status);
+    }
     public List<Post> getPublishedPosts() {
         return postRepo.findByStatusOrderByCreatedAtDesc(Status.PUBLISHED);
     }
-
+    public  List<Post>getbyCategory(Long id){
+        return  postRepo.findByCategoryId(id);
+    }
 
     // methods
     public String generateSlug(String title) {

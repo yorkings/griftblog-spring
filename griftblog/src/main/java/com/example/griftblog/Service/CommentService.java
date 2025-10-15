@@ -39,6 +39,7 @@ public class CommentService {
         return  commRepo.save(newComment);
     }
 
+
     // --- Retrieval Logic ---
     public List<Comment> getTopLevelComments(Long postId) {
         return commRepo.findByPostIdAndParentCommentIsNull(postId);
@@ -47,4 +48,17 @@ public class CommentService {
     public List<Comment> getRepliesForComment(Long parentCommentId) {
         return commRepo.findByParentCommentId(parentCommentId);
     }
+
+    public List<Comment> getCommentsByPost(Long postId) {
+        return commRepo.findByPostIdOrderByCreatedAtDesc(postId);
+    }
+
+    public List<Comment> getCommentsByUser(Long userId) {
+        return commRepo.findByAuthorIdOrderByCreatedAtDesc(userId);
+    }
+
+    public void deleteComment(Long id) {
+        commRepo.deleteById(id);
+    }
+
 }

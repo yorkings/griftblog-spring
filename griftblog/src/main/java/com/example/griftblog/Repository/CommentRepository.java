@@ -8,9 +8,8 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Long> {
-    List<Comment> findByPostId(Long postId);
-    // Retrieve all comments made by a specific user
-    List<Comment> findByAuthorId(Long authorId);
+    List<Comment> findByPostIdOrderByCreatedAtDesc(Long postId);
+    List<Comment> findByAuthorIdOrderByCreatedAtDesc(Long authorId);
 
     List<Comment>findByPostIdAndParentCommentIsNull(Long postId);
     List<Comment> findByParentCommentId(Long parentCommentId);
