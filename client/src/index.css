@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root{
+   
+   --light-header:oklch(0.05 0.1 0);
+   --light-subheader:oklch(from var(--light-header) calc(l +0.08) c h);
+   --light-text:oklch(from var(--light-header) calc(l + 0.18) c h);
+   
+   --dark-header-color: oklch(0.9 ,0 ,0); 
+   --dark-subheader: oklch(from var(--dark-header-color) calc(l - 0.1) c h);
+   --dark-text: oklch(from var(--dark-header-color) calc(l - 0.2) c h);
+
+   --font-inter: 'Inter', sans-serif;
+   --font-roboto-condensed: 'Roboto Condensed', sans-serif;
+
+  --bg-dark-start: oklch(12.056% 0.02036 282.92); /* Base Dark Indigo (Center) */
+  --bg-dark-end: oklch(7.472% 0.02188 279.717);    /* Darker Indigo (Edges) */
+  --dark-gradient: linear-gradient(45deg, var(--bg-dark-start) 0%,  var(--bg-dark-end) 100%  );
+
+  --switch-dark:oklch(22.653% 0.03282 237.469) ;
+}
+ 
+html.dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+html:not(.dark) {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+body{
+ box-sizing:border-box;
+ font-family:var(--font-roboto-condensed);
+ margin: 0 auto;
+}
+
+.theme-body{
+  height: 2rem;
+}
